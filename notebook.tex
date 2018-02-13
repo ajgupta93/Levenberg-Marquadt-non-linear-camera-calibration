@@ -1,0 +1,778 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CSE 252B: Computer Vision II, Winter 2018 -- Assignment
+2}\label{cse-252b-computer-vision-ii-winter-2018-assignment-2}
+
+\subsubsection{Instructor: Ben Ochoa}\label{instructor-ben-ochoa}
+
+\subsubsection{Due: Wednesday, February 7, 2018, 11:59
+PM}\label{due-wednesday-february-7-2018-1159-pm}
+
+    \subsection{Instructions}\label{instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  Review the academic integrity and collaboration policies on the course
+  website.
+\item
+  This assignment must be completed individually.
+\item
+  This assignment contains both math and programming problems.
+\item
+  All solutions must be written in this notebook
+\item
+  Math problems must be done in Markdown/LATEX. Remember to show work
+  and describe your solution.
+\item
+  Programming aspects of this assignment must be completed using Python
+  in this notebook.
+\item
+  This notebook contains skeleton code, which should not be modified
+  (This is important for standardization to facilate effeciant grading).
+\item
+  You may use python packages for basic linear algebra, but you may not
+  use packages that directly solve the problem. Ask the instructor if in
+  doubt.
+\item
+  You must submit this notebook exported as a pdf. You must also submit
+  this notebook as an .ipynb file.
+\item
+  You must submit both files (.pdf and .ipynb) on Gradescope. You must
+  mark each problem on Gradescope in the pdf.
+\item
+  It is highly recommended that you begin working on this assignment
+  early.
+\end{itemize}
+
+    \subsection{Problem 1 (Programing): Linear estimation of the camera
+projection matrix (15
+points)}\label{problem-1-programing-linear-estimation-of-the-camera-projection-matrix-15-points}
+
+Download input data from the course website. The file hw2\_points3D.txt
+contains the coordinates of 50 scene points in 3D (each line of the file
+gives the \(\tilde{X}_i\), \(\tilde{Y}_i\), and \(\tilde{Z}_i\)
+inhomogeneous coordinates of a point). The file hw2\_points2D.txt
+contains the coordinates of the 50 corresponding image points in 2D
+(each line of the file gives the \(\tilde{x}_i\) and \(\tilde{y}_i\)
+inhomogeneous coordinates of a point). The scene points have been
+randomly generated and projected to image points under a camera
+projection matrix (i.e.,
+\(\boldsymbol{x}_i  = \boldsymbol{P} \boldsymbol{X}_i\)), then noise has
+been added to the image point coordinates.
+
+Estimate the camera projection matrix \(\boldsymbol{P}_\text{DLT}\)
+using the direct linear transformation (DLT) algorithm (with data
+normalization). You must express
+\(\boldsymbol{x}_i = \boldsymbol{P} \boldsymbol{X}_i\) as
+\([\boldsymbol{x}_i]^\perp \boldsymbol{P} \boldsymbol{X}_i = \boldsymbol{0}\)
+(not
+\(\boldsymbol{x}_i \times \boldsymbol{P} \boldsymbol{X}_i = \boldsymbol{0}\)),
+where \([\boldsymbol{x}_i]^\perp \boldsymbol{x}_i = \boldsymbol{0}\),
+when forming the solution. Return \(\boldsymbol{P}_\text{DLT}\), scaled
+such that \(||\boldsymbol{P}_\text{DLT}||_\text{Fro} = 1\)
+
+============================================================================================
+
+\(\boldsymbol{Solution}\)
+
+Points in 3D space are projected onto the image plane by the equation
+\(x_{i} = PX_{i}\) where \(x_{i}\), \(X_{i}\) are in the homogeneous
+vector form. In order to go about solving this we first have to
+normalize both the 2D and 3D coordinates. This is in order so that all
+parameters are in the same order of range and centered. Centering can be
+done by subtracting the mean and range can be altered by scaling. This
+gives us \(x_{i_{DN}} = Tx_{i}\) and \(X_{i_{DN}} = UX_{i}\).
+
+Now the projection equation could be represented as
+\([x_{i}]^\perp PX_{i} = 0\) where \([x_{i}]^\perp x_{i} = 0\), that is
+is the left null space of \(x_{i}\) and we can find it using the House
+Holder Matrix. This equation could be rewritten as
+\(([x_{i}]^\perp \otimes X_{i})p = 0\) where p is vector representation
+of projection matrix P.
+
+The projection matrix has 12 elements but only 11 DOF. Each coordinate
+point gives two equations, so we need a minimum of 5.5 or 6 points to
+solve for p. Given n coordinates we can construct the matrix A (size 2n
+∗ 12) of kronecker products with Ap = 0. After computing the matrix A,
+we know that p is the null space of matrix A. We can compute this by
+single value decomposition of A.
+
+\(A = UDV^{T}\)
+
+and p is the last column of V. We can reshape the p vector to get P. To
+get back the denormalized matrix, we transform P as
+\(P_{DN} =T^{-1}P_{DN}U\). Taking the forbenious norm of \(P_{DN}\) will
+give us \(P_{DLT}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hw2\PYZus{}points2D.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+          \PY{n}{X}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hw2\PYZus{}points3D.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{toHomo}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} converts points from inhomogeneous to homogeneous coordinates}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{fromHomo}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} converts points from homogeneous to inhomogeneous coordinates}
+              \PY{k}{return} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+          
+          \PY{k}{def} \PY{n+nf}{normalize}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{dim} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Shift centroid to origin}
+              \PY{n}{m} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{k}{if} \PY{n}{dim}\PY{o}{==}\PY{l+m+mi}{3}\PY{p}{:}
+                  \PY{n}{tx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{dim}\PY{o}{==}\PY{l+m+mi}{4}\PY{p}{:}
+                  \PY{n}{tx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Apply translation}
+              \PY{n}{x} \PY{o}{=} \PY{n}{tx}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Calculate scaling factor}
+              \PY{n}{var} \PY{o}{=} \PY{l+m+mf}{0.0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{var}\PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{n}{s} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{var}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}s = np.sqrt((x.shape[1]\PYZhy{}1)/np.sum(x.var(axis=1)))}
+              \PY{k}{if} \PY{n}{dim}\PY{o}{==}\PY{l+m+mi}{3}\PY{p}{:}
+                  \PY{n}{sx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{k}{elif} \PY{n}{dim}\PY{o}{==}\PY{l+m+mi}{4}\PY{p}{:}
+                  \PY{n}{sx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{s}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Apply scaling}
+              \PY{n}{x} \PY{o}{=} \PY{n}{sx}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} return normalized coordinate and transformation matrix}
+              \PY{k}{return} \PY{n}{x}\PY{p}{,} \PY{n}{sx}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{tx}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{householder}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{xp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{e1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{e1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{sign} \PY{o}{=} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{k}{else} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                  \PY{n}{v} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{sign}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{e1}
+                  \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{hv} \PY{o}{=} \PY{n}{I} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{v}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{v}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{v}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{xp}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{hv}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+              \PY{k}{return} \PY{n}{xp}
+          
+          \PY{k}{def} \PY{n+nf}{computeP\PYZus{}DLT}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} inputs:}
+              \PY{c+c1}{\PYZsh{} x 2D points}
+              \PY{c+c1}{\PYZsh{} X 3D points}
+              \PY{c+c1}{\PYZsh{} output:}
+              \PY{c+c1}{\PYZsh{} P\PYZus{}DLT the (3x4) DLT estimate of the camera projection matrix}
+              
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}your code here\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{c+c1}{\PYZsh{} Convert points to homogeneous space for further processing}
+              \PY{n}{xh} \PY{o}{=} \PY{n}{toHomo}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{Xh} \PY{o}{=} \PY{n}{toHomo}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Normalized the data}
+              \PY{n}{xn}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{xh}\PY{p}{)}
+              \PY{n}{Xn}\PY{p}{,} \PY{n}{U} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{Xh}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Find orthogonal coordinates rather than taking cross product}
+              \PY{n}{xp} \PY{o}{=} \PY{n}{householder}\PY{p}{(}\PY{n}{xn}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Construct 2nx12 matrix A    }
+              \PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{q}\PY{p}{,}\PY{n}{r} \PY{o}{=} \PY{n}{xp}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{zz}\PY{p}{,} \PY{n}{ww} \PY{o}{=} \PY{n}{Xn}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}
+                  
+                  \PY{c+c1}{\PYZsh{} From [xi]⊥PXi=0}
+                  \PY{n}{A}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{a}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{a}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{a}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{a}\PY{o}{*}\PY{n}{ww}\PY{p}{,} \PY{n}{b}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{b}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{b}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{b}\PY{o}{*}\PY{n}{ww}\PY{p}{,} \PY{n}{c}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{c}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{c}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{c}\PY{o}{*}\PY{n}{ww}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{A}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{p}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{p}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{p}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{p}\PY{o}{*}\PY{n}{ww}\PY{p}{,} \PY{n}{q}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{q}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{q}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{q}\PY{o}{*}\PY{n}{ww}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{xx}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{yy}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{zz}\PY{p}{,} \PY{n}{r}\PY{o}{*}\PY{n}{ww}\PY{p}{]}\PY{p}{)}
+                  
+              \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{A}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} SVD decomposition for solution}
+              \PY{n}{X}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{Vt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+              \PY{n}{V} \PY{o}{=} \PY{n}{Vt}\PY{o}{.}\PY{n}{T}
+              \PY{n}{P} \PY{o}{=} \PY{n}{V}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Denormalization to convert back to original space}
+              \PY{n}{P\PYZus{}DN} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{pinv}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{U}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{P\PYZus{}DN}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{P\PYZus{}DN}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{P}
+          
+          
+          \PY{k}{def} \PY{n+nf}{proj}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} projects 3d points X to 2d using projection matrix P}
+              \PY{k}{return} \PY{n}{fromHomo}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{toHomo}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+          \PY{k}{def} \PY{n+nf}{rmse}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} calculates the root mean square error (RMSE)}
+              \PY{c+c1}{\PYZsh{} used to measure reprojection error}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+          \PY{k}{def} \PY{n+nf}{displayResults}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{title}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print} \PY{p}{(}\PY{n}{title}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ =}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{n}{P}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{||}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{||=}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{title}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{P}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+          
+              \PY{n}{x\PYZus{}proj} \PY{o}{=} \PY{n}{proj}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{X}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}proj}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}proj}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}proj}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}proj}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean projection error is }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{rmse}(x,x\PYZus{}proj))
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{P\PYZus{}DLT}\PY{p}{,} \PY{n}{P\PYZus{}N} \PY{o}{=} \PY{n}{computeP\PYZus{}DLT}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{X}\PY{p}{)}
+          \PY{n}{displayResults}\PY{p}{(}\PY{n}{P\PYZus{}DLT}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}DLT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x is (2, 50)
+X is (3, 50)
+P\_DLT =
+[[ -6.03053699e-03   4.88090849e-03  -8.83448329e-03  -8.39604704e-01]
+ [ -9.11953829e-03   2.31122411e-03   6.19815234e-03  -5.42952306e-01]
+ [ -5.00105053e-06  -4.47147499e-06  -2.55045867e-06  -1.25300059e-03]]
+||P\_DLT||=1.000000
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Problem 2 (Programing): Nonlinear estimation of the camera
+projection matrix (30
+points)}\label{problem-2-programing-nonlinear-estimation-of-the-camera-projection-matrix-30-points}
+
+Use \(\boldsymbol{P}_\text{DLT}\) as an initial estimate to an iterative
+estimation method, specifically the Levenberg-Marquardt algorithm, to
+determine the Maximum Likelihood estimate of the camera projection
+matrix that minimizes the projection error. You must parameterize the
+camera projection matrix as a parameterization of the homogeneous vector
+\(\boldsymbol{p} = vec{(\boldsymbol{P}^\top)}\). It is highly
+recommended to implement a parameterization of homogeneous vector method
+where the homogeneous vector is of arbitrary length, as this will be
+used in following assignments. Return \(\boldsymbol{P}_\text{LM}\),
+scaled such that \(||\boldsymbol{P}_\text{LM}||_\text{Fro} = 1\). You
+may need to change the max itterations or implement another stoping
+criteria.
+
+===================================================================================================
+
+\(\boldsymbol{Solution}\)
+
+After computing an initial linear estimate of the projection matrix, we
+now use the Levenberg- Marquardt algorithm to derive a better nonlinear
+estimate. The value computed in linear estimation is used as the initial
+guess for Levenberg-Marquardt (LM) algorithm. The algorithm is run with
+an initial \(\lambda\) value of 0.001 and a convergence tolerance
+\(\eta\) of \(10^{-6}\). At each iteration we compute the error vector
+\(\epsilon\) and cost value \(\epsilon^{T}\Sigma_{x}^{-1}\epsilon\),
+where \(\epsilon = X_{measurement} - X_{estimated}\),
+\(X_{measurement}\) is the normalized homogenous input 2D coordinates
+and \(X_{estimated}\) is their estimated values using camera projection
+matrix.
+
+For LM algorithm, we parameterize the projection matrix to get parameter
+vector p of 11 elements as the P matrix has 11 DoF. For each
+optimization iteration, we calculate
+\(\delta = (J^T\Sigma_{x}^{-1}J)^{-1}J^T\Sigma_{x}^{-1}\epsilon\) where
+J is the Jacobian \(J = dX_{measurement}/dp\) calculated using the chain
+rule. At each iteration the new parameterized vector is
+\(p_{new} = \delta + p\). If cost for \(p_{new}\) is less than cost for
+p we update \(p = p_{new}\) and \(\lambda = 0.1 ∗ \lambda\); otherwise
+we increase value of \(\lambda\), setting \(\lambda = 10 ∗ \lambda\). I
+have plotted the graph for cost vs iterations at the end. The graph
+shows that the cost decreases sharply in the first iteration and smooths
+out thereafter. The initial cost after Linear Estimation is 84.44180181,
+after first iteration its 83.52424336, and finally becomes 83.51047354.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{k}{def} \PY{n+nf}{sinc}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mf}{1.0}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{x}
+              
+          \PY{k}{def} \PY{n+nf}{error}\PY{p}{(}\PY{n}{x\PYZus{}meas}\PY{p}{,} \PY{n}{x\PYZus{}est}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{x\PYZus{}meas}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}est}
+          
+          \PY{k}{def} \PY{n+nf}{calcCost}\PY{p}{(}\PY{n}{error}\PY{p}{,} \PY{n}{cov\PYZus{}inv}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{error}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{cov\PYZus{}inv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{error}\PY{p}{)}\PY{p}{)}
+              
+          \PY{k}{def} \PY{n+nf}{jacobian}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{P}\PY{p}{)}\PY{p}{:}
+              \PY{n}{p} \PY{o}{=} \PY{n}{parameterize}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+              \PY{n}{pn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{k}{if} \PY{n}{pn}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{da} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{p}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{db} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{da} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{deparameterize}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{T} 
+                  \PY{n}{db} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{sinc}\PY{p}{(}\PY{n}{pn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{4.0}\PY{o}{*}\PY{n}{pn}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{pn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{pn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{pn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{pn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{p}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+              \PY{n}{dpdv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{da}\PY{p}{,}\PY{n}{db}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{J} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{p}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{w} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{dxdv} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{n}{w}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} 
+                                \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} 
+                                \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                                \PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} 
+                                \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} 
+                                \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} chain rule}
+                  \PY{n}{J}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{dxdv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{dpdv}\PY{p}{)}
+              \PY{k}{return} \PY{n}{J}
+          
+          \PY{k}{def} \PY{n+nf}{parameterize}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+              \PY{n}{x} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{a} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{b} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+              \PY{n}{v} \PY{o}{=} \PY{l+m+mf}{2.0}\PY{o}{/}\PY{n}{sinc}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{b}
+              \PY{n}{vn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{k}{if} \PY{n}{vn}\PY{o}{\PYZgt{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{:}
+                  \PY{n}{v} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{n}{vn}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{p}{(}\PY{n}{vn}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{v}
+              \PY{k}{return} \PY{n}{v}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{deparameterize}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+              \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{v}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{vn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{vn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{sinc}\PY{p}{(}\PY{n}{vn}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{v}
+              \PY{k}{return} \PY{n}{p}
+          
+          \PY{k}{def} \PY{n+nf}{parNorm}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+              \PY{n}{vn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{k}{if} \PY{n}{vn}\PY{o}{\PYZgt{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{:}
+                  \PY{n}{v} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{n}{vn}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{p}{(}\PY{n}{vn}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{v}
+              \PY{k}{return} \PY{n}{v}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{LMstep}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{v}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} inputs:}
+              \PY{c+c1}{\PYZsh{} P current estimate of P}
+              \PY{c+c1}{\PYZsh{} x 2D points}
+              \PY{c+c1}{\PYZsh{} X 3D points}
+              \PY{c+c1}{\PYZsh{} l LM lambda parameter}
+              \PY{c+c1}{\PYZsh{} v LM change of lambda parameter}
+              \PY{c+c1}{\PYZsh{} output:}
+              \PY{c+c1}{\PYZsh{} P updated by a single LM step}
+              \PY{c+c1}{\PYZsh{} l accepted lambda parameter}
+              
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}your code here\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{counter}\PY{o}{=}\PY{l+m+mi}{0}
+              \PY{k}{while}\PY{p}{(}\PY{n}{counter}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{counter}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                  \PY{c+c1}{\PYZsh{} Calculate current error and cost}
+                  \PY{n}{x\PYZus{}estimated} \PY{o}{=} \PY{n}{proj}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{n}{fromHomo}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{n}{err} \PY{o}{=} \PY{n}{error}\PY{p}{(}\PY{n}{x\PYZus{}measured}\PY{p}{,}\PY{n}{x\PYZus{}estimated}\PY{p}{)}
+                  \PY{n}{cost} \PY{o}{=} \PY{n}{calcCost}\PY{p}{(}\PY{n}{err}\PY{p}{,}\PY{n}{cov\PYZus{}inv}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Calculate jacobian}
+                  \PY{n}{J} \PY{o}{=} \PY{n}{jacobian}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{P}\PY{p}{)}
+                  \PY{n}{subterm1} \PY{o}{=} \PY{n}{J}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{cov\PYZus{}inv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{J}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{term1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{subterm1}\PY{o}{+}\PY{n}{l}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{subterm1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{term2} \PY{o}{=} \PY{n}{J}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{cov\PYZus{}inv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Parameter update value}
+                  \PY{n}{delta} \PY{o}{=} \PY{n}{term1}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{term2}\PY{p}{)}
+                  \PY{n}{p} \PY{o}{=} \PY{n}{parameterize}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+                  \PY{n}{p\PYZus{}new} \PY{o}{=} \PY{n}{parNorm}\PY{p}{(}\PY{n}{p} \PY{o}{+} \PY{n}{delta}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Trying to reproject to check new cost}
+                  \PY{n}{P\PYZus{}new} \PY{o}{=} \PY{n}{deparameterize}\PY{p}{(}\PY{n}{p\PYZus{}new}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+                  \PY{n}{x\PYZus{}estimated} \PY{o}{=} \PY{n}{proj}\PY{p}{(}\PY{n}{P\PYZus{}new}\PY{p}{,}\PY{n}{fromHomo}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{n}{err} \PY{o}{=} \PY{n}{error}\PY{p}{(}\PY{n}{x\PYZus{}measured}\PY{p}{,}\PY{n}{x\PYZus{}estimated}\PY{p}{)}
+                  \PY{n}{cost\PYZus{}new} \PY{o}{=} \PY{n}{calcCost}\PY{p}{(}\PY{n}{err}\PY{p}{,}\PY{n}{cov\PYZus{}inv}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{cost\PYZus{}new}\PY{o}{\PYZlt{}}\PY{n}{cost}\PY{p}{:}
+                      \PY{k}{return} \PY{n}{P\PYZus{}new}\PY{p}{,} \PY{n}{l}\PY{o}{/}\PY{n}{v}\PY{p}{,} \PY{n}{err}\PY{p}{,} \PY{n}{cost\PYZus{}new}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{l} \PY{o}{=} \PY{n}{l}\PY{o}{*}\PY{n}{v}
+              \PY{k}{return} \PY{n}{P}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{err}\PY{p}{,} \PY{n}{cost}
+          
+          \PY{c+c1}{\PYZsh{} use P\PYZus{}DLT as an initalization for LM}
+          \PY{n}{P\PYZus{}LM} \PY{o}{=} \PY{n}{P\PYZus{}N}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} LM hyperparameters}
+          \PY{n}{l}\PY{o}{=}\PY{l+m+mf}{0.001}
+          \PY{n}{eta} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6} \PY{c+c1}{\PYZsh{} for stopping}
+          \PY{n}{v}\PY{o}{=}\PY{l+m+mi}{10}
+          \PY{n}{max\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{10}
+          
+          \PY{c+c1}{\PYZsh{} Data Normalization}
+          \PY{n}{xn}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{toHomo}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xin} \PY{o}{=} \PY{n}{fromHomo}\PY{p}{(}\PY{n}{xn}\PY{p}{)}
+          \PY{n}{Xn}\PY{p}{,} \PY{n}{U} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{toHomo}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Initial cost}
+          \PY{n}{x\PYZus{}measured} \PY{o}{=} \PY{n}{xin}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{x\PYZus{}estimated} \PY{o}{=} \PY{n}{proj}\PY{p}{(}\PY{n}{P\PYZus{}LM}\PY{p}{,}\PY{n}{fromHomo}\PY{p}{(}\PY{n}{Xn}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{p} \PY{o}{=} \PY{n}{parameterize}\PY{p}{(}\PY{n}{P\PYZus{}LM}\PY{p}{)}
+          \PY{n}{scale} \PY{o}{=} \PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+          \PY{n}{cov} \PY{o}{=} \PY{n}{scale}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{x\PYZus{}measured}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{cov\PYZus{}inv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{cov}\PY{p}{)}
+          \PY{n}{err} \PY{o}{=} \PY{n}{error}\PY{p}{(}\PY{n}{x\PYZus{}measured}\PY{p}{,}\PY{n}{x\PYZus{}estimated}\PY{p}{)}
+          \PY{n}{cost} \PY{o}{=} \PY{n}{calcCost}\PY{p}{(}\PY{n}{err}\PY{p}{,}\PY{n}{cov\PYZus{}inv}\PY{p}{)}
+          \PY{n}{P\PYZus{}LM} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{P\PYZus{}LM}
+          
+          \PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+          
+          \PY{n}{prev\PYZus{}cost} \PY{o}{=} \PY{n}{cost}\PY{o}{+}\PY{l+m+mi}{1}
+          
+          \PY{c+c1}{\PYZsh{} LM optimization loop}
+          \PY{n}{it} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{while} \PY{n}{prev\PYZus{}cost}\PY{o}{\PYZhy{}}\PY{n}{cost}\PY{o}{\PYZgt{}}\PY{n}{eta}\PY{p}{:}
+              \PY{n}{prev\PYZus{}cost} \PY{o}{=} \PY{n}{cost}
+              \PY{n}{P\PYZus{}LM}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{err}\PY{p}{,} \PY{n}{cost} \PY{o}{=} \PY{n}{LMstep}\PY{p}{(}\PY{n}{P\PYZus{}LM}\PY{p}{,} \PY{n}{xin}\PY{p}{,} \PY{n}{Xn}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{v}\PY{p}{)}
+              \PY{n}{P\PYZus{}LMDN} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{pinv}\PY{p}{(}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P\PYZus{}LM}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{U}\PY{p}{)}
+              \PY{n}{P\PYZus{}LMDN} \PY{o}{=} \PY{n}{P\PYZus{}LMDN}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{P\PYZus{}LMDN}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+              \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iter }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ mean reprojection error }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{it}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{rmse}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{proj}\PY{p}{(}\PY{n}{P\PYZus{}LMDN}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iter }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ cost }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{it}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cost}\PY{p}{)}\PY{p}{)}
+              \PY{n}{it}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+              
+          \PY{n}{displayResults}\PY{p}{(}\PY{n}{P\PYZus{}LMDN}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P\PYZus{}LM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iter 1 mean reprojection error 1.160847
+iter 1 cost 83.524243
+iter 2 mean reprojection error 1.158908
+iter 2 cost 83.510474
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/site-packages/ipykernel\_launcher.py:82: RuntimeWarning: invalid value encountered in multiply
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iter 3 mean reprojection error 1.158908
+iter 3 cost 83.510474
+P\_LM =
+[[  6.06552021e-03  -4.81660824e-03   8.81027954e-03   8.41443212e-01]
+ [  9.07235110e-03  -2.30117784e-03  -6.16626306e-03   5.40100482e-01]
+ [  4.97891804e-06   4.44129098e-06   2.53304663e-06   1.24643775e-03]]
+||P\_LM||=1.000000
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{costs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{costs}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{costs}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{costs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{costs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{costs}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}282}]:} array([ 84.44180181,  83.52424336,  83.51047354,  83.51047354])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
